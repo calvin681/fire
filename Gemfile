@@ -4,6 +4,8 @@ gem 'rails', '3.0.10'
 gem 'bson_ext'
 gem 'mongo_mapper'
 gem 'jquery-rails'
+gem 'compass'
+gem 'haml'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
