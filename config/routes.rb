@@ -1,4 +1,8 @@
 Fire::Application.routes.draw do
+  get "companies/index"
+
+  get "companies/show"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

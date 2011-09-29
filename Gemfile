@@ -6,6 +6,7 @@ gem 'mongo_mapper'
 gem 'jquery-rails'
 gem 'compass'
 gem 'haml'
+gem 'haml-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
