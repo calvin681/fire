@@ -1,0 +1,6 @@
+%p
+  = @user.name
+  = "current" if @user == current_user
+  
+%p
+  = link_to 'sign out', logout_users_path

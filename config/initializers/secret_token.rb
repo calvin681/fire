@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Fire::Application.config.secret_token = 'dd4908e224104e38bb54c7177e78abe7b36d72fefb8ef8d01dac355abb6c560f8ed15fcc4850fc040209550c3288f3035d44e859f4a7eda8a47087a9b9685a20'
+Fire::Application.config.secret_token = '77b5193c23badc6b4ccd4205b2c34d20b740febd2179b9592b3121180c6227d1b56080f0a39a90276fae56da102393dc608a894ce13df70f219dcd31691b3350'

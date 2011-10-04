@@ -1,7 +1,14 @@
 Fire::Application.routes.draw do
-  get "companies/index"
+  
 
-  get "companies/show"
+  devise_for :users, :controllers => { :omniauth_callbacks => 'users' } do
+    # get '/users/auth/:provider/callback' => 'users#authenticate'
+    get '/users/auth/:provider' => 'users#passthru'
+  end
+  
+  resources :users do
+    get 'logout', :on => :collection
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -52,7 +59,7 @@ Fire::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  root :to => 'users#index'
 
   # See how all your routes lay out with "rake routes"
 

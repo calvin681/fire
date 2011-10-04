@@ -1,0 +1,12 @@
+defaults: &defaults
+  linked_in_api_key: ck3wuu87qgvc
+  linked_in_api_secret: L2F4WZADMAdieNXr
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
