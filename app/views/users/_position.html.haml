@@ -1,0 +1,15 @@
+.position.card{ html_attributes }
+  .header
+    .title
+      = position.title
+    .company
+      = position.company_name
+  .body
+    - if position.start_date_number > 0
+      .duration
+        = "#{Date::MONTHNAMES[position.start_month.to_i]} #{position.start_year}"
+        &mdash;
+        = position.current? ? "Present" : "#{Date::MONTHNAMES[position.end_month.to_i]} #{position.end_year}"
+    - if position.summary.present?
+      .summary
+        = simple_format(position.summary)

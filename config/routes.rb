@@ -6,7 +6,7 @@ Fire::Application.routes.draw do
     get '/users/auth/:provider' => 'users#passthru'
   end
   
-  resources :users do
+  resources :users, :constraints => { :id => /.+/ } do
     get 'logout', :on => :collection
   end
 

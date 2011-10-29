@@ -1,5 +1,10 @@
-%h1 Users#index
-%p Find me in app/views/users/index.html.haml
+%h1.title
+  LN Timeline
 
+%h2.tag-line
+  Make your LinkedIn profile beautiful.
 
-= link_to "Sign in with Linkedin", "/users/auth/linked_in"
+%a.button{ :href => "/users/auth/linked_in" }
+  = image_tag "linkedin_logo.png"
+  %p
+    Connect to

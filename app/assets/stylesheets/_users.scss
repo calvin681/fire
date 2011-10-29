@@ -1,0 +1,400 @@
+$gray-border-color: #aaa;
+$light-gray-border-color: #e5e5e5;
+$light-blue-background-color: #f1f3f8;
+$gray-text-color: #808080;
+$timeline-background-color: #c3ccdf;
+$vertical-padding: 10px;
+
+#content.users-index {
+  text-align: center;
+  
+  .title {
+    font-size: 5em;
+    font-weight: bold;
+    @include single-text-shadow;
+    margin: 80px 0 0;
+  }
+
+  .tag-line {
+    font-family: Georgia,"Nimbus Roman No9 L",serif;
+    font-size: 2.5em;
+    @include single-text-shadow;
+    margin-bottom: 40px;
+  }
+  
+  .button {
+    @include border-radius(10px);
+    
+    p {
+      line-height: 48px;
+      margin-right: 185px;
+    }
+    
+    img {
+      float: right;
+    }
+  
+  }
+}
+
+#content.users-show {
+  .card {
+    background: #fff;
+    border: 1px solid #c4cde0;
+    @include box-shadow(rgba(0, 0, 0, 0.1) 0 1px 1px);
+    @include border-radius;
+  }
+  
+  .profile-header {
+    $horizontal-padding: 25px;
+    $picture-length: 120px;
+    $picture-padding: 5px;
+    $picture-outer-length: $picture-length + 2 * $picture-padding + 2px;
+    $name-line-height: 30px;
+    $margin-top: $picture-outer-length - $vertical-padding - $name-line-height - 1px;
+  
+    position: relative;
+    padding: $vertical-padding 0 20px;
+    margin-top: $margin-top + 10px;
+    margin-bottom: $vertical-padding;
+  
+    .picture {
+      border: 1px solid $gray-border-color;
+      padding: $picture-padding;
+      position: absolute;
+      background: #fff;
+      top: -$margin-top;
+      left: $horizontal-padding;
+      @include border-radius;
+      @include box-shadow(rgba(0, 0, 0, 0.1) 0 1px 1px);
+      
+      img {
+        width: $picture-length;
+        height: $picture-length;
+        vertical-align: middle;
+      }
+    }
+    
+    p.name {
+      font-size: 2em;
+      line-height: $name-line-height;
+      margin: 0 $horizontal-padding 0 $picture-outer-length + $horizontal-padding + 20px;
+    }
+    
+    p.description {
+      border: 1px solid $light-gray-border-color;
+      border-left: 0;
+      border-right: 0;
+      background: $light-blue-background-color;
+      margin: 10px 0 0;
+      padding: 5px $horizontal-padding;
+      font-size: 1.1em;
+    }
+    
+    @mixin sub-header {
+      color: $gray-text-color;
+      float: right;
+      line-height: $name-line-height;
+    }
+    
+    p.industry {
+      @include sub-header;
+      margin-right: $horizontal-padding;
+    }
+    
+    .vertical-divider {
+      float: right;
+      width: 1px;
+      height: 20px;
+      margin: 5px 10px;
+      background-color: $light-gray-border-color;
+    }
+    
+    p.location {
+      @include sub-header;
+    }
+    
+    .sub-header-spacer {
+      float: right;
+      width: 20px;
+      height: 1px;
+    }
+    
+    .info {
+      overflow: hidden;
+      margin-top: 20px;
+      padding-left: $horizontal-padding;
+      
+      .clip {
+        float: right;
+        width: 110px;
+        height: 70px;
+        border: 1px solid $light-gray-border-color;
+        margin-left: 10px;
+
+        &.connections {
+          font-size: 2.5em;
+          font-weight: bold;
+          line-height: 70px;
+          text-align: center;
+          border-right: 0;
+          background: $light-blue-background-color image-url("connection.png");
+        }
+      }
+    }
+  }
+  
+  .timeline-container {
+    overflow: hidden;
+    position: relative;
+    
+    .card {
+      $card-vertical-margin: 10px;
+      $card-horizontal-margin: 12px;
+      
+      padding: 3px;
+      float: left;
+      width: 400px;
+      overflow: hidden;
+      position: absolute;
+      
+//      .header {
+//        margin: $card-vertical-margin $card-horizontal-margin 0;
+//        padding-bottom: 5px;
+//        border-bottom: 1px solid $light-gray-border-color;
+//      }
+
+      .header {
+        padding: 7px $card-horizontal-margin;
+        background: $light-blue-background-color;
+        @include border-radius;
+        
+        .title {
+          line-height: 1.2em;
+          font-size: 1.1em;
+          font-weight: bold;
+        }
+      }
+      
+      .duration {
+        color: $gray-text-color;
+        margin: 5px $card-horizontal-margin $card-vertical-margin;
+      }
+    
+      &.position {
+      
+        .summary {
+          margin: 15px $card-horizontal-margin $card-vertical-margin;
+        
+          p {
+            margin-top: 15px;
+          }
+        }
+      }
+
+    }
+    
+    .timeline {
+      position: absolute;
+      background-color: $timeline-background-color;
+      overflow: hidden;
+      
+      .collapsed {
+        position: absolute;
+        background: transparent image-url("dot.png") repeat-y;
+      }
+      
+      .year {
+        position: absolute;
+        color: #fff;
+        width: 37px;
+        line-height: 14px;
+        background: transparent image-url("year_label_background.png") repeat;
+        text-align: center;
+        font-weight: bold;
+        padding: 3px;
+        @include border-radius;
+      }
+      
+      .extent {
+        position: absolute;
+        top: -$vertical-padding;
+        height: $vertical-padding;
+        background-color: $timeline-background-color;
+      }
+      
+      .timeline-duration {
+        position: absolute;
+        
+        .segment {
+          background: transparent image-url("timeline2.png") repeat-y;
+          width: 15px;
+          clear: both;
+          
+          &.left {
+            float: right;
+          }
+          
+          &.right {
+            float: left;
+          }
+        
+          &.top-6 {
+            height: 6px;
+            
+            &.left {
+              background-position: left 0;
+            }
+            
+            &.right {
+              background-position: right 0;
+            }
+          }
+          
+          &.middle {
+            &.left {
+//              background-position: -113px 0;
+              background-position: -115px 0;
+            }
+            
+            &.right {
+//              background-position: -117px 0;
+              background-position: -116px 0;
+            }
+          }
+
+          &.bottom-6 {
+            height: 6px;
+            
+            &.left {
+              background-position: left -6px;
+            }
+            
+            &.right {
+              background-position: right -6px;
+            }
+          }
+
+          &.top-4 {
+            height: 4px;
+            
+            &.left {
+//              background-position: left -12px;
+              background-position: left 0;
+            }
+            
+            &.right {
+//              background-position: right -12px;
+              background-position: right 0;
+            }
+          }
+
+          &.bottom-4 {
+            height: 4px;
+            
+            &.left {
+//              background-position: left -16px;
+              background-position: left -4px;
+            }
+            
+            &.right {
+//              background-position: right -16px;
+              background-position: right -4px;
+            }
+          }
+
+          &.top-2 {
+            height: 2px;
+            
+            &.left {
+//              background-position: left -20px;
+              background-position: left -8px;
+            }
+            
+            &.right {
+//              background-position: right -20px;
+              background-position: right -8px;
+            }
+          }
+
+          &.bottom-2 {
+            height: 2px;
+            
+            &.left {
+//              background-position: left -22px;
+              background-position: left -10px;
+            }
+            
+            &.right {
+//              background-position: right -22px;
+              background-position: right -10px;
+            }
+          }
+        }
+        
+        .tip {
+          position: absolute;
+          height: 13px;
+          width: 100%;
+          background: transparent image-url("tip.png") no-repeat 0 0;
+          
+          &.right {
+            background-position: right -33px;
+            
+            &.top {
+              background-position: right -48px;
+              
+              .link {
+                background-position: left top;
+              }
+            }
+
+            &.bottom {
+              background-position: right -56px;
+              
+              .link {
+                background-position: left bottom;
+              }
+            }
+            
+            .link {
+              margin: 0 11px 0 14px;
+              background-position: left center;
+            }
+          }
+          
+          &.top {
+            background-position: 0 -15px;
+            height: 8px;
+            
+            .link {
+              height: 8px;
+              position: relative;
+              top: -1px;
+              background-position: right top;
+            }
+          }
+          
+          &.bottom {
+            background-position: 0 -23px;
+            height: 8px;
+            
+            .link {
+              height: 8px;
+              position: relative;
+              bottom: -1px;
+              background-position: right bottom;
+            }
+          }
+          
+          .link {
+            margin: 0 14px 0 11px;
+            height: 13px;
+            background: transparent image-url("tip_link.png") no-repeat right center;
+          }
+        }
+      }
+    }
+  }
+  
+}

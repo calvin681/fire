@@ -1,6 +1,37 @@
-%p
-  = @user.name
-  = "current" if @user == current_user
+.card.profile-header
+  .picture
+    = image_tag(@user.image.blank? ? asset_path("profile.png") : @user.image)
   
+  - if @user.industry.present?
+    %p.industry
+      = @user.industry
+  - if @user.location.present? && @user.industry.present?
+    .vertical-divider
+  - if @user.location.present?
+    %p.location
+      = @user.location
+  - if @user.location.present? || @user.industry.present?
+    .sub-header-spacer
+    
+  %p.name
+    = @user.name
+  - if @user.description.present?
+    %p.description
+      = @user.description
+  .info
+    .clip.connections
+      = "#{@user.num_connections}#{@user.num_connections_capped? ? "+" : ""}"
+    - if @user.location.present?
+      .clip
+        %a{ :href => "http://maps.google.com?q=#{URI.escape(@user.location)}", :target => "_blank"}
+          %img{ :src => "http://maps.googleapis.com/maps/api/staticmap?markers=#{URI.escape("color:green|size:small|"+@user.location)}&size=110x70&sensor=false" }
+    - if @user.summary.present?
+      = @user.summary
+
+.timeline-container{ :'data-end-date-number' => @end_date_number }
+  = render :partial => "users/card", :collection => @episodes
+  .timeline
+    .extent
+
 %p
   = link_to 'sign out', logout_users_path

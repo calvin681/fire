@@ -12,11 +12,16 @@ class User
   embeds_many :educations
   embeds_many :recommendations
   
+  field :num_connections, :type => Integer
+  field :num_connections_capped, :type => Boolean
+  
+  index :uid
+  
   accepts_nested_attributes_for :positions, :educations, :recommendations
   
   attr_accessible :first_name, :last_name, :name, :location, :description, :public_profile_url, :image, :industry,
-                  :summary, :provider, :uid, :token, :secret, :positions_attributes, :educations_attributes,
-                  :recommendations_attributes
+                  :summary, :num_connections, :num_connections_capped, :provider, :uid, :token, :secret,
+                  :positions_attributes, :educations_attributes, :recommendations_attributes
   
   validates_presence_of :first_name
   validates_presence_of :last_name
@@ -31,10 +36,17 @@ class User
     true
   end
   
+  def image_url
+    # image.blank? ? asset_path("profile.png") : image
+    asset_path("profile.png")
+  end
+  
   def import_linkedin_data
     client = LinkedIn::Client.new(Yetting.linked_in_api_key, Yetting.linked_in_api_secret)
     client.authorize_from_access(self.token, self.secret)
-    profile = client.profile(:id => "eAbhVmLoZZ", :fields => ["industry", "summary", "positions", "educations", "recommendations-received"])
+    profile = client.profile(:id => "eAbhVmLoZZ",
+      :fields => ["industry", "summary", "positions", "educations", "recommendations-received", "num-connections",
+                  "num-connections-capped", "picture-url"])
 
     profile.positions.all.each do |p|
       p.delete(:id)
@@ -79,6 +91,12 @@ class User
     self.recommendations.destroy_all
     self.attributes = profile
     self.save!
+  end
+  
+  def episodes(current_date_number)
+    (positions + educations).sort_by! do |e|
+      [-e.end_date_number(current_date_number), -e.start_date_number]
+    end
   end
   
   handle_asynchronously :import_linkedin_data

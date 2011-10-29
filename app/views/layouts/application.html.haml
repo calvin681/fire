@@ -1,0 +1,15 @@
+!!! 5
+
+%html
+  %head
+    %title LN Timeline
+    = stylesheet_link_tag("application")
+    = javascript_include_tag("application")
+    
+  %body
+    #content{ :class => "#{controller_name}-#{action_name}" }
+      - if notice.present?
+        %p.notice= notice
+      - if alert.present?
+        %p.alert= alert
+      = yield

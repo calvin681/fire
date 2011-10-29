@@ -1,6 +1,9 @@
+require 'time_helper'
+
 class Position
   include Mongoid::Document
   include Mongoid::Timestamps
+  include TimeHelper
   
   embedded_in :user
   

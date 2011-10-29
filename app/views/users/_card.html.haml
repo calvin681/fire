@@ -1,0 +1,7 @@
+- html_attributes = card.start_date_number > 0 ? { :'data-start' => @end_date_number - card.start_date_number + 1,
+  :'data-end' => @end_date_number - card.end_date_number(@current_date_number) } : {}
+- case card
+  - when Position
+    = render :partial => "users/position", :object => card, :locals => { :html_attributes => html_attributes }
+  - when Education
+    = render :partial => "users/education", :object => card, :locals => { :html_attributes => html_attributes }

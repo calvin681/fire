@@ -1,0 +1,51 @@
+body {
+  background: $background-blue;
+  font-color: $font-color;
+  font-size: $font-size;
+  line-height: 1.5;
+  font-family: 'Lucida Grande', Arial, sans-serif;
+  
+  #content
+  {
+    width: 895px;
+    margin: 10px auto;
+  }
+}
+
+a {
+  @include unstyled-link;
+}
+
+.button {
+  display: inline-block;
+  font-size: 2em;
+  color: #fff;
+  padding: 10px 30px;
+  background-color: #5b74ab;
+  border: 1px solid #29447e;
+  @include box-shadow(rgba(0, 0, 0, 0.8) 0 1px 3px, rgba(255, 255, 255, 0.8) 0 1px 1px inset);
+  @include border-radius(5px);
+  @include text-shadow(rgba(0, 0, 0, 0.6) 0 -1px 1px);
+}
+
+p {
+  &.alert, &.notice {
+    font-size: 1.1em;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+
+  &.alert {
+    outline: 1px solid #f00;
+    background: #ffc8c8;
+    border-top: 1px solid #ffd9d9;
+    color: #800;
+  }
+  
+  &.notice {
+    outline: 1px solid #fc0;
+    background: #ffffc8;
+    border-top: 1px solid #fff;
+    color: #c60;
+  }
+}

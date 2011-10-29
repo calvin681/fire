@@ -1,0 +1,14 @@
+.education.card{ html_attributes }
+  .header
+    .title
+      = education.school_name
+    .degree
+      - if education.degree.present?
+        = "#{education.degree}#{"," if education.field_of_study.present?}"
+      = education.field_of_study if education.field_of_study.present?
+  .body
+    - if education.start_date_number > 0
+      .duration
+        = "#{Date::MONTHNAMES[education.start_month.to_i]} #{education.start_year}"
+        &mdash;
+        = education.current? ? "Present" : "#{Date::MONTHNAMES[education.end_month.to_i]} #{education.end_year}"
