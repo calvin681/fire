@@ -14,6 +14,26 @@ class User
   
   field :num_connections, :type => Integer
   field :num_connections_capped, :type => Boolean
+  field :first_name
+  field :last_name
+  field :name
+  field :location
+  field :description
+  field :public_profile_url
+  field :image
+  field :industry
+  field :summary
+  field :num_connections
+  field :num_connections_capped
+  field :provider
+  field :uid
+  field :token
+  field :secret
+  field :positions_attributes
+  field :educations_attributes
+  field :recommendations_attributes
+  field :public
+  field :public_id
   
   index :uid
   
@@ -21,7 +41,8 @@ class User
   
   attr_accessible :first_name, :last_name, :name, :location, :description, :public_profile_url, :image, :industry,
                   :summary, :num_connections, :num_connections_capped, :provider, :uid, :token, :secret,
-                  :positions_attributes, :educations_attributes, :recommendations_attributes
+                  :positions_attributes, :educations_attributes, :recommendations_attributes, :public,
+                  :public_id
   
   validates_presence_of :first_name
   validates_presence_of :last_name
@@ -32,13 +53,10 @@ class User
   validates_presence_of :token
   validates_presence_of :secret
   
+  before_save :set_public_id
+  
   def remember_me
     true
-  end
-  
-  def image_url
-    # image.blank? ? asset_path("profile.png") : image
-    asset_path("profile.png")
   end
   
   def import_linkedin_data
@@ -97,6 +115,10 @@ class User
     (positions + educations).sort_by! do |e|
       [-e.end_date_number(current_date_number), -e.start_date_number]
     end
+  end
+  
+  def set_public_id
+    self.public_id = /.+www\.linkedin\.com\/(.*)/.match(public_profile_url)[1] if public_profile_url.present?
   end
   
   handle_asynchronously :import_linkedin_data

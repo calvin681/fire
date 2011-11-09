@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   include TimeHelper
   
   before_filter :show_current_user, :only => [:index, :linked_in]
-  before_filter :ensure_user, :only => :show
+  before_filter :ensure_user, :only => [:show, :update]
   
   def index
   end
@@ -16,6 +16,13 @@ class UsersController < ApplicationController
     @end_date_number = @episodes.first.end_date_number(@current_date_number) if @episodes.first.present?
   end
   
+  def update
+    params[:public] = params[:commit].downcase == "public" if params[:commit].present?
+    @user.attributes = params
+    save = @user.save
+    render :json => { :public => @user.public? }.to_json, :status => (save ? :ok : :unprocessable_entity)
+  end
+  
   def linked_in
     omniauth = request.env["omniauth.auth"]
     user = User.where(:provider => omniauth['provider'], :uid => omniauth['uid']).first
@@ -25,7 +32,8 @@ class UsersController < ApplicationController
       sign_in_and_redirect(user)
       return
     else
-      user = User.new({ :provider => omniauth['provider'], :uid => omniauth['uid'] }.merge!(omniauth['credentials']).merge!(omniauth['user_info']))
+      user = User.new({ :provider => omniauth['provider'], :uid => omniauth['uid'], :public => false }.
+        merge!(omniauth['credentials']).merge!(omniauth['user_info']))
       if user.save
         user.import_linkedin_data
         sign_in_and_redirect(user)
@@ -50,14 +58,20 @@ class UsersController < ApplicationController
     sign_out_and_redirect(:user)
   end
   
+  def destroy
+    current_user.destroy if current_user
+    sign_out_and_redirect(:user)
+  end
+  
   private
   
   def show_current_user
-    redirect_to user_path(current_user) if current_user
+    redirect_to permanent_user_path(current_user.public_id) if current_user
   end
   
   def ensure_user
     @user = User.find(params[:id]) if params[:id] !~ /\//
+    @user = User.where(:public_id => params[:id]).first unless @user
     redirect_to users_path if @user.blank?
   end
 

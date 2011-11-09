@@ -6,9 +6,12 @@ Fire::Application.routes.draw do
     get '/users/auth/:provider' => 'users#passthru'
   end
   
-  resources :users, :constraints => { :id => /.+/ } do
+  # resources :users, :constraints => { :id => /.+/ } do
+  resources :users do
     get 'logout', :on => :collection
   end
+  
+  get 'u/*id' => 'users#show', :as => "permanent_user"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

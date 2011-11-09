@@ -11,6 +11,9 @@ class Education
   field :start_year, :type => Integer
   field :end_month, :type => Integer
   field :end_year, :type => Integer
+  field :degree
+  field :field_of_study
+  field :school_name
   
   attr_accessible :degree, :field_of_study, :school_name, :start_month, :start_year, :end_month, :end_year
   

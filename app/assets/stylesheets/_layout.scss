@@ -14,18 +14,11 @@ body {
 
 a {
   @include unstyled-link;
+  @include link-colors(#3b5998);
 }
 
 .button {
-  display: inline-block;
-  font-size: 2em;
-  color: #fff;
-  padding: 10px 30px;
-  background-color: #5b74ab;
-  border: 1px solid #29447e;
-  @include box-shadow(rgba(0, 0, 0, 0.8) 0 1px 3px, rgba(255, 255, 255, 0.8) 0 1px 1px inset);
-  @include border-radius(5px);
-  @include text-shadow(rgba(0, 0, 0, 0.6) 0 -1px 1px);
+  cursor: pointer;
 }
 
 p {

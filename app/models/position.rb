@@ -12,6 +12,10 @@ class Position
   field :start_year, :type => Integer
   field :end_month, :type => Integer
   field :end_year, :type => Integer
+  field :company_name
+  field :company_industry
+  field :title
+  field :summary
   
   attr_accessible :company_id, :company_name, :company_industry, :title, :summary, :start_month, :start_year,
                   :end_month, :end_year

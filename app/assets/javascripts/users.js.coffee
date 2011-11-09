@@ -1,4 +1,4 @@
-$ = jQuery;
+$ = jQuery
 
 $.fn.extend
   timeline: (options) ->
@@ -256,4 +256,4 @@ $.fn.extend
 
 
 $ () ->
-  $(".timeline-container").timeline();
+  $(".timeline-container").timeline()

@@ -1,19 +1,47 @@
+.nav-container
+  .nav
+    = form_for(@user, :html => { :class => "privacy #{@user.public? ? "public" : "private"}" }, :remote => true) do |f|
+      = f.submit "Private", :class => "private-button button", :disable_with => "Saving..."
+      = f.submit "Public", :class => "public-button button", :disable_with => "Saving..."
+    .social-networks{ :class => "#{@user.public? ? "public" : "private"}" }
+      %ul.private-share
+        %li.facebook{ :title => "Profile is not public" }
+        %li.twitter{ :title => "Profile is not public" }
+        %li.linkedin{ :title => "Profile is not public" }
+        %li.google{ :title => "Profile is not public" }
+      %ul.public-share
+        %li
+          %fb:like{ :href => request.url, :send => false, :layout => "button_count", :show_faces => false,
+            :font => "lucida grande" }
+        %li
+          %a{ :href => "https://twitter.com/share", :class => "twitter-share-button",
+              "data-text" => "LinkedIn profile in a timeline" } Tweet
+        %li
+          %script{ :type => "IN/Share", "data-url" => request.url, "data-counter" => "right" }
+        %li
+          %g:plusone{ :size => "medium" }
+    %p
+      = link_to 'Sign out', logout_users_path
+    %p
+      = link_to t("users.delete_profile"), user_path(current_user), :method => :delete
+    
+
 .card.profile-header
   .picture
     = image_tag(@user.image.blank? ? asset_path("profile.png") : @user.image)
   
-  - if @user.industry.present?
-    %p.industry
-      = @user.industry
-  - if @user.location.present? && @user.industry.present?
-    .vertical-divider
-  - if @user.location.present?
-    %p.location
-      = @user.location
   - if @user.location.present? || @user.industry.present?
-    .sub-header-spacer
+    .sub-header
+      - if @user.industry.present?
+        %p.industry
+          = @user.industry
+      - if @user.location.present? && @user.industry.present?
+        .vertical-divider
+      - if @user.location.present?
+        %p.location
+          = @user.location
     
-  %p.name
+  %h1.name
     = @user.name
   - if @user.description.present?
     %p.description
@@ -32,6 +60,5 @@
   = render :partial => "users/card", :collection => @episodes
   .timeline
     .extent
-
-%p
-  = link_to 'sign out', logout_users_path
+    
+#fb-root
