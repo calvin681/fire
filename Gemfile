@@ -32,7 +32,9 @@ gem 'yettings'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano', :group => :development
+
+gem 'therubyracer', :group => :production
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
