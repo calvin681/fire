@@ -1,4 +1,5 @@
 require "bundler/capistrano"
+require "delayed/recipes"
 load 'deploy/assets'
 
 set :application, "fire"
@@ -9,6 +10,7 @@ set :scm, :git
 set :user, "deploy"
 set :deploy_to, "/home/deploy/#{application}"
 set :use_sudo, false
+set :rails_env, "production" #added for delayed job
 
 server "ec2-72-44-34-40.compute-1.amazonaws.com", :app, :web, :db, :primary => true
 
@@ -21,10 +23,17 @@ server "ec2-72-44-34-40.compute-1.amazonaws.com", :app, :web, :db, :primary => t
 # these http://github.com/rails/irs_process_scripts
 
 # If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+namespace :deploy do
+  task :start do ; end
+  task :stop do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+end
+
+# Delayed Job  
+before "deploy:restart", "delayed_job:stop"
+after  "deploy:restart", "delayed_job:start"
+
+after "deploy:stop",  "delayed_job:stop"
+after "deploy:start", "delayed_job:start"
