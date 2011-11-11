@@ -7,7 +7,7 @@ set :repository,  "git@github.com:calvin681/fire.git"
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 set :user, "deploy"
-set :deploy_to, "/home/deploy"
+set :deploy_to, "/home/deploy/#{application}"
 set :use_sudo, false
 
 server "ec2-72-44-34-40.compute-1.amazonaws.com", :app, :web, :db, :primary => true
