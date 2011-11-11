@@ -6,7 +6,8 @@ development:
   <<: *defaults
 
 test:
-  <<: *defaults
+  linked_in_api_key: g4jdbhrdzh1j
+  linked_in_api_secret: aKqlexiFDyxmihVj
 
 production:
   <<: *defaults
