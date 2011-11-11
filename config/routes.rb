@@ -9,6 +9,7 @@ Fire::Application.routes.draw do
   # resources :users, :constraints => { :id => /.+/ } do
   resources :users do
     get 'logout', :on => :collection
+    get 'importing', :on => :member
   end
   
   get 'u/*id' => 'users#show', :as => "permanent_user"

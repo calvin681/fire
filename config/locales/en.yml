@@ -6,4 +6,7 @@ en:
     linkedin_failed: "Sorry, there is a problem communicating with LinkedIn. Please try again later."
     sign_out: "Sign out"
     delete_profile: "Delete my profile"
-    privacy_label: "My profile is"
+    public: "Public"
+    private: "Private"
+    my_profile: "View my profile"
+    importing_profile: "Updating profile"

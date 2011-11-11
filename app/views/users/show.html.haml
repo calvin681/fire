@@ -1,8 +1,10 @@
 .nav-container
   .nav
-    = form_for(@user, :html => { :class => "privacy #{@user.public? ? "public" : "private"}" }, :remote => true) do |f|
-      = f.submit "Private", :class => "private-button button", :disable_with => "Saving..."
-      = f.submit "Public", :class => "public-button button", :disable_with => "Saving..."
+    - if @user == current_user
+      = form_for(@user, :html => { :class => "privacy #{@user.public? ? "public" : "private"}" },
+        :remote => true) do |f|
+        = f.submit "Private", :class => "private-button button", :disable_with => "Saving..."
+        = f.submit "Public", :class => "public-button button", :disable_with => "Saving..."
     .social-networks{ :class => "#{@user.public? ? "public" : "private"}" }
       %ul.private-share
         %li.facebook{ :title => "Profile is not public" }
@@ -20,10 +22,18 @@
           %script{ :type => "IN/Share", "data-url" => request.url, "data-counter" => "right" }
         %li
           %g:plusone{ :size => "medium" }
-    %p
-      = link_to 'Sign out', logout_users_path
-    %p
-      = link_to t("users.delete_profile"), user_path(current_user), :method => :delete
+    - if @user == current_user
+      %p
+        = link_to t("users.sign_out"), logout_users_path
+      %p
+        = link_to t("users.delete_profile"), user_path(current_user), :method => :delete
+    - else
+      %p
+        = link_to t("users.my_profile"), users_path
+    - if @user.importing_linkedin_data?
+      %p.importing{ "data-check-url" => importing_user_path(@user) }
+        = t("users.importing_profile")
+        
     
 
 .card.profile-header

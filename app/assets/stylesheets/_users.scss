@@ -427,7 +427,6 @@ $vertical-padding: 10px;
       left: -$nav-width - 40px;
       margin: 10px;
       padding: 10px;
-      color: #000;
       background-color: #d6dce9;
 //      background-color: rgba(59, 89, 152, 0.1);
 //      background-color: #c4cedf;
@@ -562,6 +561,11 @@ $vertical-padding: 10px;
           }
         }
         
+      }
+      
+      .importing {
+        padding-left: 19px;
+        background: transparent image-url("loading.gif") no-repeat left center;
       }
     }
   }

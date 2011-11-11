@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   include TimeHelper
   
   before_filter :show_current_user, :only => [:index, :linked_in]
-  before_filter :ensure_user, :only => [:show, :update]
+  before_filter :ensure_user, :only => [:show, :update, :importing]
+  before_filter :ensure_current_user, :only => :update
   
   def index
   end
@@ -63,6 +64,10 @@ class UsersController < ApplicationController
     sign_out_and_redirect(:user)
   end
   
+  def importing
+    render :json => { :importing => @user.importing_linkedin_data? }
+  end
+  
   private
   
   def show_current_user
@@ -73,6 +78,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id]) if params[:id] !~ /\//
     @user = User.where(:public_id => params[:id]).first unless @user
     redirect_to users_path if @user.blank?
+  end
+  
+  def ensure_current_user
+    redirect_to users_path unless @user == current_user
   end
 
 end

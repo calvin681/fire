@@ -1,7 +1,7 @@
 $ = jQuery
 
 $ () ->
-  $(".nav form.privacy").bind "ajax:success", (event, data) ->
+  $("div.users-show div.nav form.privacy").bind "ajax:success", (event, data) ->
     $form = $(@)
     add = "private"
     remove = "public"
