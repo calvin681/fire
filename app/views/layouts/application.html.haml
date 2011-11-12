@@ -8,6 +8,7 @@
     = javascript_include_tag("//platform.twitter.com/widgets.js")
     = javascript_include_tag("http://platform.linkedin.com/in.js")
     = csrf_meta_tag
+    = yield :head
     
   %body
     #content{ :class => "#{controller_name}-#{action_name}" }
