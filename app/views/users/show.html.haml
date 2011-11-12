@@ -5,9 +5,8 @@
   %meta{ :property => "og:url", :content => request.url }
   - if @user.image.present?
     %meta{ :property => "og:image", :content => @user.image }
-  - else
-    %meta{ :property => "og:image", :content => "https://a248.e.akamai.net/assets.github.com/images/modules/header/logov6-hover.png" }
   %meta{ :property => "og:site_name", :content => "LN Timeline" }
+  %meta{ :property => "og:description", :content => " " }
   %meta{ :property => "fb:admins", :content => "215918" }
 
 .nav-container
