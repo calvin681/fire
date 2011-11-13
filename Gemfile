@@ -26,6 +26,7 @@ gem 'delayed_job_mongoid'
 gem 'linkedin'
 gem 'yettings'
 gem 'possessive'
+gem 'airbrake'
 
 
 
