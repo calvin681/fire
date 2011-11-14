@@ -57,15 +57,17 @@ $.fn.extend
       $timeline.prepend($collapsedLine)
       totalHeight = newTotalHeight
       
-      $context.height(totalHeight).css
-        overflow: "visible"
-      moveEpisodes($context)
+      setTimeout () ->
+        $context.height(totalHeight).css
+          overflow: "visible"
+        moveEpisodes($context)
+      , 400
       setTimeout () ->
         $timeline.hide().css
           overflow: 'visible'
         $timeline.height(totalHeight)
         $timeline.fadeIn(1000)
-      , 1000
+      , 1400
       
     processEpisode = ($episode, props) ->
       $body = $episode.find(".body").hide()
@@ -205,6 +207,7 @@ $.fn.extend
       borderWidth = Math.ceil(($episode.outerWidth() - $episode.innerWidth()) / 2)
       $duration = $("<div class='timeline-duration'></div>").appendTo($timeline).css
         top: pos.timelineEnd
+      $episode.data("duration", $duration)
       side = "left"
       css =
         width: $timeline.data("left") - $episode.outerWidth() + borderWidth
@@ -248,7 +251,23 @@ $.fn.extend
         else
           tip.css
             top: tipTop - pos.timelineEnd
+      setupHover($episode, $duration)
     
+    setupHover = ($episode, $duration) ->
+      timeoutId = null
+      $episode.hover(() ->
+        if not timeoutId?
+          timeoutId = setTimeout () ->
+            $episode.addClass("hover")
+            $duration.addClass("hover")
+          , 700
+      , () ->
+        clearTimeout(timeoutId) if timeoutId?
+        timeoutId = null
+        $episode.removeClass("hover")
+        $duration.removeClass("hover")
+      )
+      
     return @each () ->
       $context = $(this)
       init($context, options.initialMonthHeight)

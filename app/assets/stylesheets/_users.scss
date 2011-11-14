@@ -208,7 +208,10 @@ $vertical-padding: 10px;
           }
         }
       }
-
+      
+      &.hover {
+        z-index: 100;
+      }
     }
     
     .timeline {
@@ -408,6 +411,14 @@ $vertical-padding: 10px;
             margin: 0 14px 0 11px;
             height: 13px;
             background: transparent image-url("tip_link.png") no-repeat right center;
+          }
+        }
+        
+        &.hover {
+          z-index: 100;
+          
+          .segment {
+            background-image: image-url("timeline.png");
           }
         }
       }
