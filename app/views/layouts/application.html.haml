@@ -18,3 +18,9 @@
       - if alert.present?
         %p.alert= alert
       = yield
+      
+      .footer-spacer
+    .footer
+      &copy; #{Time.now.year}, LN Timeline
+      &nbsp;|&nbsp;
+      = mail_to "xxxxx", "Feedback"

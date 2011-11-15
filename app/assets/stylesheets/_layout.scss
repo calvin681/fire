@@ -1,3 +1,7 @@
+html, body {
+  height: 100%;
+}
+
 body {
   background: $background-blue;
   color: $font-color;
@@ -8,7 +12,21 @@ body {
   #content
   {
     width: 895px;
-    margin: 10px auto;
+    margin: 0 auto;
+    min-height: 100%;
+    margin-bottom: -$footer-height;
+    
+    .footer-spacer {
+      height: $footer-height;
+    }
+  }
+  
+  .footer {
+    height: $footer-height - 5;
+    text-align: center;
+    color: $gray-text-color;
+    padding-top: 5px;
+    @include single-text-shadow;
   }
 }
 

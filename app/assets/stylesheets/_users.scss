@@ -1,7 +1,6 @@
 $gray-border-color: #aaa;
 $light-gray-border-color: #e5e5e5;
 $light-blue-background-color: #f1f3f8;
-$gray-text-color: #808080;
 $timeline-background-color: #c3ccdf;
 $vertical-padding: 10px;
 
@@ -9,9 +8,8 @@ $vertical-padding: 10px;
   text-align: center;
   
   .title {
-    margin-top: 100px;
-    height: 130px;
-    background: transparent image-url("logo.png") no-repeat center center;
+    height: 230px;
+    background: transparent image-url("logo.png") no-repeat center 125px;
   }
 
   .tag-line {
@@ -50,6 +48,7 @@ $vertical-padding: 10px;
 }
 
 #content.users-show {
+  
   .card {
     background: #fff;
     border: 1px solid #c4cde0;
