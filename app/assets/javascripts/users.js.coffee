@@ -32,9 +32,9 @@ $.fn.extend
         
       $context.find("> .card[data-start]").each () ->
         processEpisode($(@), props)
-        
+      
       if 0 < props.shrinkage < 1
-        newMonthHeight = Math.ceil(monthHeight * props.shrinkage)
+        newMonthHeight = Math.max(Math.ceil(monthHeight * props.shrinkage), options.minMonthHeight)
         if options.minMonthHeight <= newMonthHeight < monthHeight
           init($context, newMonthHeight)
           return
@@ -80,6 +80,7 @@ $.fn.extend
       pos =
         minHeight: minHeight
         height: $episode.outerHeight()
+        fullHeight: $episode.outerHeight()
         verticalPadding: $episode.outerHeight() - $episode.height()
         timelineStart: startDateOffset * props.monthHeight
         timelineEnd: endDateOffset * props.monthHeight
@@ -94,7 +95,10 @@ $.fn.extend
       
       if !isNaN(startDateOffset)
         pos.minOverlap = Math.min(props.monthHeight * (startDateOffset - endDateOffset), pos.minOverlap)
-        shrinkage = (sideProps.offset + Math.min(pos.minOverlap,
+        minOffset = sideProps.episodes.reduce (sum, e) ->
+          sum += (e.data("pos").height + options.verticalMargin)
+        , 0
+        shrinkage = (minOffset + Math.min(pos.minOverlap,
                      options.minMonthHeight * (startDateOffset - endDateOffset))) / pos.timelineStart
       
         if pos.timelineStart < sideProps.offset + pos.minOverlap
@@ -126,6 +130,7 @@ $.fn.extend
             top: pos.top
             left: pos.left
             height: pos.height - pos.verticalPadding, 1000
+          $episode.addClass("collapsed") if pos.height isnt pos.fullHeight
         return
     
     shiftEpisode = (diff, episodes, index) ->
@@ -177,7 +182,7 @@ $.fn.extend
           $timeline.prepend($collapsedLine)
 
           currentEnd = offset + options.verticalMargin + options.collapsedHeight
-        offset = Math.max(pos.top + pos.height, pos.timelineStart)
+        offset = Math.max(pos.top + pos.height, pos.timelineStart, offset)
         generateDuration($episode, $timeline)
         
       insertYearLabels($timeline, currentEnd, offset, collapse, props)
