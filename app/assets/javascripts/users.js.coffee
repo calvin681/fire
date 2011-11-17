@@ -130,7 +130,6 @@ $.fn.extend
             top: pos.top
             left: pos.left
             height: pos.height - pos.verticalPadding, 1000
-          $episode.addClass("collapsed") if pos.height isnt pos.fullHeight
         return
     
     shiftEpisode = (diff, episodes, index) ->
@@ -265,12 +264,20 @@ $.fn.extend
           timeoutId = setTimeout () ->
             $episode.addClass("hover")
             $duration.addClass("hover")
+            pos = $episode.data("pos")
+            if pos.height isnt pos.fullHeight
+              $episode.animate
+                height: pos.fullHeight - pos.verticalPadding
           , 700
       , () ->
         clearTimeout(timeoutId) if timeoutId?
         timeoutId = null
         $episode.removeClass("hover")
         $duration.removeClass("hover")
+        pos = $episode.data("pos")
+        if pos.height isnt pos.fullHeight
+          $episode.css
+            height: pos.height - pos.verticalPadding
       )
       
     return @each () ->
