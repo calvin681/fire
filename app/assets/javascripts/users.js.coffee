@@ -95,9 +95,9 @@ $.fn.extend
       
       if !isNaN(startDateOffset)
         pos.minOverlap = Math.min(props.monthHeight * (startDateOffset - endDateOffset), pos.minOverlap)
-        minOffset = sideProps.episodes.reduce (sum, e) ->
-          sum += (e.data("pos").height + options.verticalMargin)
-        , 0
+        minOffset = 0
+        $.each sideProps.episodes, (i, e) ->
+          minOffset += (e.data("pos").height + options.verticalMargin)
         shrinkage = (minOffset + Math.min(pos.minOverlap,
                      options.minMonthHeight * (startDateOffset - endDateOffset))) / pos.timelineStart
       
