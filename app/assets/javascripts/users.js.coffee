@@ -117,7 +117,7 @@ $.fn.extend
       $episode.data("pos", pos)
       sideProps.episodes.push($episode)
       sideProps.offset = Math.max(pos.top + pos.height + options.verticalMargin, sideProps.offset)
-      sideProps.maxHeight = Math.max(sideProps.offset, pos.timelineStart)
+      sideProps.maxHeight = Math.max(sideProps.offset, pos.timelineStart, sideProps.maxHeight)
       props.episodes.push($episode)
       
       
