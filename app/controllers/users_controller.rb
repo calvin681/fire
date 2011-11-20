@@ -77,6 +77,7 @@ class UsersController < ApplicationController
   def ensure_user
     @user = User.find(params[:id]) if params[:id] !~ /\//
     @user = User.where(:public_id => params[:id]).first unless @user
+    @user = User.where(:public_id => URI.escape(params[:id])).first unless @user
     redirect_to users_path if @user.blank? || (!@user.public? && @user != current_user)
   end
   
