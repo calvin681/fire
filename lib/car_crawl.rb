@@ -57,7 +57,7 @@ class CarCrawl
       ]).body)
     nodes.unshift
     nodes.each do |node|
-      car_number = node[1]
+      car_number = node[1].to_s
       name = "#{node[10]} #{node[3]} #{node[4]} #{node[5]}"
       ext_color = node[8]
       int_color = node[9]
@@ -66,7 +66,7 @@ class CarCrawl
       price = node[11]
       city = node[15]
       
-      next if location == "Autobahn Motors"
+      next if location == "Autobahn Motors" || car_number.size < 4
       
       car = Car.find_or_create_by(:car_number => car_number)
       car.attributes = { :name => name, :ext_color => ext_color, :int_color => int_color, :mileage => mileage,

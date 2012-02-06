@@ -4,6 +4,6 @@ class GeneralMailer < ActionMailer::Base
   def crawl_report(cars)
     @cars = cars
 
-    mail to: "calvin@lnti.me"
+    mail to: "heather.bayhome@gmail.com"
   end
 end
