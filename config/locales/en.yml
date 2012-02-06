@@ -11,3 +11,6 @@ en:
     my_profile: "View my profile"
     importing_profile: "Updating profile"
     og_description: "Visualize your professional profile in a timeline."
+  general_mailer:
+    crawl_report:
+      subject: Car Inventory

@@ -1,0 +1,24 @@
+%html
+  %head
+  %body{ :style => "font-family: 'Lucida Grande', Arial, sans-serif; font-size: 12px;" }
+    %table{ :style => "width: 100%", :cellpadding => "5px" }
+      %tr
+        %th{ :style => "width: 40%; text-align: left;" } CAR
+        %th{ :style => "width: 10%; text-align: left;" } EXT. COLOR
+        %th{ :style => "width: 10%; text-align: left;" } INT. COLOR
+        %th{ :style => "width: 20%; text-align: left;" } LOCATION
+        %th{ :style => "width: 10%; text-align: right;" } MILEAGE
+        %th{ :style => "width: 10%; text-align: right;" } PRICE
+      - @cars.each_with_index do |car, i|
+        %tr{ :style => "background-color: #{i % 2 == 0 ? "#eeeeee" : "#ffffff" }" }
+          %td
+            %span{ :style => "font-weight: bold;" }= car.name
+            - if car.subtitle
+              %br
+              = car.subtitle
+          %td= car.ext_color
+          %td= car.int_color
+          %td= car.location
+          %td{ :style => "text-align: right;" }= number_with_delimiter(car.mileage || 0)
+          %td{ :style => "text-align: right;" }= "$ #{number_with_delimiter(car.price || 0)}"
+
