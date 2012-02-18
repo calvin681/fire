@@ -5,8 +5,10 @@ class CarCrawl
   end
   
   def start
+    @cars = Car.where(:deleted_at => nil).all.map(&:id)
     crawl
     crawl2
+    Car.where(:_id.in => @cars).update_all(:deleted_at => Time.now)
     email
   end
   
@@ -32,6 +34,7 @@ class CarCrawl
       car_number = node.css("dt").detect { |d| d.text == 'Vin:' }.next_element.text.strip
       
       car = Car.find_or_create_by(:car_number => car_number)
+      @cars.delete(car.id) unless car.new_record?
       car.attributes = { :name => name, :ext_color => ext_color, :int_color => int_color, :mileage => mileage,
         :location => location, :price => price }
       car.save!
@@ -69,6 +72,7 @@ class CarCrawl
       next if location == "Autobahn Motors" || car_number.size < 4
       
       car = Car.find_or_create_by(:car_number => car_number)
+      @cars.delete(car.id) unless car.new_record?
       car.attributes = { :name => name, :ext_color => ext_color, :int_color => int_color, :mileage => mileage,
         :location => "#{location}, #{city}", :price => price }
       car.save!
@@ -78,7 +82,7 @@ class CarCrawl
   
   
   def email
-    cars = Car.asc(:price)
+    cars = Car.where(:deleted_at => nil).asc(:price)
     GeneralMailer.crawl_report(cars).deliver unless cars.empty?
   end
   
