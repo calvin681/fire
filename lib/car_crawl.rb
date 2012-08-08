@@ -23,7 +23,7 @@ class CarCrawl
         ['SBbodystyle', 'clear'],
         ['SBprice', 'clear'],
         ['sortBy', 'internetprice asc']
-      ]).body).css("ul.uf-CERTIFIED_USED_INVENTORY > li.vehicle").each do |node|
+      ]).body).css("ul > li.vehicle").each do |node|
 
       name = node.at_css("h2 span").text.strip
       ext_color = node.at_css("dd.extColorValue")
