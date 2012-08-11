@@ -34,7 +34,7 @@ class CarCrawl
       mileage.gsub!(",", "") if mileage
       location = node.at_css("dd.location").text.strip
       price = node.at_css("span.price em").text.gsub!("$", "").gsub!(",", "")
-      car_number = node.css("dt").detect { |d| d.text == 'Vin:' }.next_element.text.strip
+      car_number = node.css("dt").detect { |d| 'Vin:'.casecmp(d.text) == 0 }.next_element.text.strip
       
       car = Car.find_or_create_by(:car_number => car_number)
       @cars.delete(car.id) unless car.new_record?
