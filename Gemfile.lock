@@ -244,7 +244,7 @@ GEM
       activesupport (~> 3.0)
       railties (~> 3.0)
       rspec (~> 2.6.0)
-    ruby-openid (2.1.8)
+    ruby-openid (2.9.1)
     ruby-openid-apps-discovery (1.2.0)
       ruby-openid (>= 2.1.7)
     rubyntlm (0.1.1)
