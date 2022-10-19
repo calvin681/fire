@@ -28,7 +28,7 @@ gem 'yettings'
 gem 'possessive'
 gem 'airbrake'
 gem 'mechanize', '~> 2.1'
-gem 'nokogiri', '~> 1.5.0'
+gem 'nokogiri', '~> 1.5.11'
 
 
 
